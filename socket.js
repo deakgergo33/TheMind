@@ -24,14 +24,14 @@ window.onload = () => {
     //player name
     socket.emit('player', {player: player.value});
     //player ready
-    ready.addEventListener('change', (event) => {
-        if(event.currentTarget.checked){
-            socket.emit('ready', {player: player.value, ready: 'true'});
-        }
-        else{
-            socket.emit('ready', {player: player.value, ready: 'false'});
-        }
-    });
+    $('#ready').on('change', (event) => {
+            if (event.currentTarget.checked) {
+                socket.emit('ready', { player: player.value, ready: 'true' });
+            }
+            else {
+                socket.emit('ready', { player: player.value, ready: 'false' });
+            }
+        });
     //play card
     topcard.addEventListener('click', () => {
         socket.emit('card_played', {card: topcard.value, player: player.value});
