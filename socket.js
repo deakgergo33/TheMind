@@ -4,18 +4,19 @@ window.onload = () => {
     var player = document.getElementById('player');
     var ready = document.getElementById('ready');
     var gamefield = document.getElementById('gamefield');
-    var card = new Array(8);
-    var topcard = document.getElementById('card1');
+    var server_cards = new Array(8);
+    var client_cards = new Array(8);
     var played_cards = document.getElementById('played_cards');
     var try_again = document.getElementById('try_again');
     var next_level = document.getElementById('next_level');
-    var cards = document.getElementById('cards');
+    var dropbox = document.getElementById('dropbox');
 
+    for(var i=0; i<8;i++){
+        client_cards[i]=document.getElementById('card'+(i+1).toString())
+    }
 
     var level = document.getElementById('level').value;
     var cards_played = 0;
-
-    topcard.setAttribute('disabled', 'true');
 
     try_again.style.display='none';
     next_level.style.display='none';
@@ -33,16 +34,29 @@ window.onload = () => {
             }
         });
     //play card
-    topcard.addEventListener('click', () => {
+    /*topcard.addEventListener('click', () => {
         socket.emit('card_played', {card: topcard.value, player: player.value});
-        card[cards_played++] = 101;
+        server_cards[cards_played++] = 101;
         if(cards_played<level){
-            topcard.value = card[cards_played];
+            topcard.value = server_cards[cards_played];
         }
         else{
             topcard.style.display = 'none';
         }
-    });    
+    });*/
+
+    function allowDrop(ev){
+        ev.preventDefault();
+    }
+
+    function drag(ev){
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev){
+        ev.preventDefault();
+        alert(document.getElementById(ev.dataTransfer.getData("text")).id);
+    }
     
     //next level
     next_level.addEventListener('click', () => {
@@ -57,7 +71,7 @@ window.onload = () => {
     socket.on('full', () => {
         alert('server full');
     });
-    //card
+    //get cards
     socket.on('cards', (data) => {
         var temp = new Array(8);
         for(var i=0;i<level;i++){
@@ -68,12 +82,14 @@ window.onload = () => {
         }
         temp = temp.sort(function(a, b){return a-b});
         for(var i=0;i<8;i++){
-            card[i] = temp[i];
+            server_cards[i] = temp[i];
         }
-        topcard.value = card[0];
-        topcard.innerHTML = card[0].toString();
         for(var i=0;i<level;i++){
-            cards.innerHTML += card[i] + '  ';
+            client_cards[i].innerHTML = server_cards[i].toString();
+            document.getElementById('card'+(i+1).toString()+'0').innerHTML = server_cards[i].toString();
+            document.getElementById('card'+(i+1).toString()+'1').innerHTML = server_cards[i].toString();
+            document.getElementById('card'+(i+1).toString()+'2').innerHTML = server_cards[i].toString();
+            document.getElementById('card'+(i+1).toString()+'3').innerHTML = server_cards[i].toString();
         }
     });
     //players joined, disconnected
@@ -85,17 +101,17 @@ window.onload = () => {
     //players ready to start
     socket.on('ready', () => {
         ready.style.display = 'none';
-        topcard.removeAttribute('disabled');
+        //topcard.removeAttribute('disabled');
     });
     //card played
     socket.on('card_played', (data) => {
         for(var i=0;i<level;i++){
-            if(parseInt(data.played_card)>parseInt(card[i])){
-                socket.emit('card_played', {card: card[i], player: player.value});
+            if(parseInt(data.played_card)>parseInt(server_cards[i])){
+                socket.emit('card_played', {card: server_cards[i], player: player.value});
             }
         }
         if(data.result=='lose'){
-            topcard.setAttribute('disabled', 'true');
+            //topcard.setAttribute('disabled', 'true');
             try_again.style.display = 'block';
         }
         else if(data.cards_left==0){

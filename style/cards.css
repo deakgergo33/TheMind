@@ -1,0 +1,91 @@
+.card_center{
+    font-family: cursive; 
+    font-size: 70px; 
+    color: black;
+    text-shadow: 1px 0 whitesmoke, -1px 0 whitesmoke, 0 1px whitesmoke, 0 -1px whitesmoke;
+    transform: translateX(-50%) translateY(-50%); 
+    position: absolute; 
+    top: 50%; 
+    left: 50%;
+}
+.card_topleft{
+    font-family: cursive; 
+    font-size: 25px; 
+    color: whitesmoke;
+    position: absolute; 
+    top: -1%; 
+    left: 4%;
+}
+.card_topright{
+    font-family: cursive; 
+    font-size: 25px; 
+    color: whitesmoke;
+    position: absolute; 
+    top: -1%; 
+    right: 4%;
+}
+.card_botleft{
+    font-family: cursive; 
+    font-size: 25px; 
+    color: whitesmoke;
+    transform: rotate(180deg); 
+    position: absolute; 
+    bottom: -1%; 
+    left: 4%;
+}
+.card_botright{
+    font-family: cursive; 
+    font-size: 25px; 
+    color: whitesmoke;
+    transform: rotate(180deg); 
+    position: absolute; 
+    bottom: -1%; 
+    right: 4%;
+}
+
+.played_cards_box, .card1_box, .card2_box, .card3_box, .card4_box, .card5_box, .card6_box, .card7_box, .card8_box{
+    width: 130px; 
+    height: 200px; 
+    background-image: url('/img/card_sample.png'); 
+    background-size: cover;
+    transform: translateX(-50%) translateY(-50%); 
+    position: absolute; 
+    top: 50%;
+}
+
+.played_cards_box{
+    left: 50%;
+}
+
+.card1_box{
+    left: 0%;
+    z-index: 8;
+}
+.card2_box{
+    left: 10%;
+    z-index: 7;
+}
+.card3_box{
+    left: 20%;
+    z-index: 6;
+}
+.card4_box{
+    left: 30%;
+    z-index: 5;
+}
+.card5_box{
+    left: 40%;
+    z-index: 4;
+}
+.card6_box{
+    left: 50%;
+    z-index: 3;
+}
+.card7_box{
+    left: 60%;
+    z-index: 2;
+}
+.card8_box{
+    left: 70%;
+    z-index: 1;
+}

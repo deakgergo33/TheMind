@@ -64,6 +64,9 @@ app.get('/style/game.css', function (req, res) {
 app.get('/style/checkbox.css', function (req, res) {
     res.sendFile(__dirname + '/style/checkbox.css');
 });
+app.get('/style/cards.css', function (req, res) {
+    res.sendFile(__dirname + '/style/cards.css');
+});
 //pics
 app.get('/img/background.jpg', function (req, res) {
     res.sendFile(__dirname + '/img/background.jpg');
@@ -76,6 +79,10 @@ app.get('/img/hatlap2.png', function (req, res) {
 });
 app.get('/img/pic3.png', function (req, res) {
     res.sendFile(__dirname + '/img/pic3.png');
+});
+
+app.get('/drag(event)', function (req, res) {
+    res.sendFile(__dirname + '/socket.js');
 });
 
 app.use((req, res) => {

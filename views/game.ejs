@@ -8,10 +8,13 @@
 
     <!-- Bootstrap  -->
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-       
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">  
+
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style/cards.css">
 
     <title>The Mind</title>
     <script src="/socket.io/socket.io.js"></script>
@@ -61,16 +64,15 @@
                     </div>
                 </div>
             </div>
+            
             <div class="col-6" style="position: relative;">
-                <div
-                    style="width: 130px; height: 200px; background-image: url('/img/card_sample.png'); background-size: cover;
-                            position: relative; transform: translateX(-50%) translateY(-50%); position: absolute; top: 50%; left: 50%;">
-
-                    <div id="played_cards" style="font-family: cursive; font-size: 70px; color: black;
-                            text-shadow: 1px 0 whitesmoke, -1px 0 whitesmoke, 0 1px whitesmoke, 0 -1px whitesmoke;
-                            transform: translateX(-50%) translateY(-50%); position: absolute; top: 50%; left: 50%;">
-                        0
-                    </div>
+                <div id="dropbox" ondrop="drop(event)" class="played_cards_box" ondragover="allowDrop(event)"
+                    dropzone="true">
+                    <div id="played_cards" class="card_center">0</div>
+                    <div class="card_topleft">0</div>
+                    <div class="card_topright">0</div>
+                    <div class="card_botleft">0</div>
+                    <div class="card_botright">0</div>
                 </div>
             </div>
             <div class="col-3 text-center">
@@ -89,32 +91,83 @@
                 </div>
             </div>
         </div>
-        <br>
+        <br><br>
         <div class="row justify-content-center" style="height: 200px; border: 1px black solid;">
             <div class="col-1">
                 <div>
                     <style>
-                        .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
-                        .toggle.ios .toggle-handle { border-radius: 20px; }
+                        .toggle.ios,
+                        .toggle-on.ios,
+                        .toggle-off.ios {
+                            border-radius: 20px;
+                        }
+
+                        .toggle.ios .toggle-handle {
+                            border-radius: 20px;
+                        }
                     </style>
-                    <input type="checkbox" data-toggle="toggle" data-on="Ready" data-off="Unready" data-onstyle="success" 
-                        id="ready" data-offstyle="danger" data-style="ios">
+                    <input type="checkbox" data-toggle="toggle" data-on="Ready" data-off="Unready"
+                        data-onstyle="success" id="ready" data-offstyle="danger" data-style="ios">
                 </div>
             </div>
             <div class="col-2"></div>
-            <div class="col-4" style="position: relative;">
-                <div id="gamefield">
-
-                    <div id="cards"></div>
+            <div class="col-4"
+                style="position: relative; min-width: 500px; min-height: 200px; border: 1px tomato solid;">
+                <div id="asd" class="card1_box" draggable="true" ondragstart="drag(event)">
+                    <div id="card1" class="card_center"></div>
+                    <div id="card10" class="card_topleft"></div>
+                    <div id="card11" class="card_topright"></div>
+                    <div id="card12" class="card_botleft"></div>
+                    <div id="card13" class="card_botright"></div>
                 </div>
-                <div style="width: 130px; height: 200px; background-image: url('/img/card_sample.png'); background-size: cover;
-                            position: relative; transform: translateX(-50%) translateY(-50%); position: absolute; top: 50%; left: 50%;"
-                    draggable="true">
-
-                    <div id="card1" style="font-family: cursive; font-size: 70px; color: black;
-                            text-shadow: 1px 0 whitesmoke, -1px 0 whitesmoke, 0 1px whitesmoke, 0 -1px whitesmoke;
-                            transform: translateX(-50%) translateY(-50%); position: absolute; top: 50%; left: 50%;">
-                    </div>
+                <div class="card2_box" draggable="true">
+                    <div id="card2" class="card_center">100</div>
+                    <div id="card20" class="card_topleft">100</div>
+                    <div id="card21" class="card_topright">100</div>
+                    <div id="card22" class="card_botleft">100</div>
+                    <div id="card23" class="card_botright">100</div>
+                </div>
+                <div class="card3_box" draggable="true">
+                    <div id="card3" class="card_center">100</div>
+                    <div id="card30" class="card_topleft">100</div>
+                    <div id="card31" class="card_topright">100</div>
+                    <div id="card32" class="card_botleft">100</div>
+                    <div id="card33" class="card_botright">100</div>
+                </div>
+                <div class="card4_box" draggable="true">
+                    <div id="card4" class="card_center">100</div>
+                    <div id="card40" class="card_topleft">100</div>
+                    <div id="card41" class="card_topright">100</div>
+                    <div id="card42" class="card_botleft">100</div>
+                    <div id="card43" class="card_botright">100</div>
+                </div>
+                <div class="card5_box" draggable="true">
+                    <div id="card5" class="card_center">100</div>
+                    <div id="card50" class="card_topleft">100</div>
+                    <div id="card51" class="card_topright">100</div>
+                    <div id="card52" class="card_botleft">100</div>
+                    <div id="card53" class="card_botright">100</div>
+                </div>
+                <div class="card6_box" draggable="true">
+                    <div id="card6" class="card_center">100</div>
+                    <div id="card60" class="card_topleft">100</div>
+                    <div id="card61" class="card_topright">100</div>
+                    <div id="card62" class="card_botleft">100</div>
+                    <div id="card63" class="card_botright">100</div>
+                </div>
+                <div class="card7_box" draggable="true">
+                    <div id="card7" class="card_center">100</div>
+                    <div id="card70" class="card_topleft">100</div>
+                    <div id="card71" class="card_topright">100</div>
+                    <div id="card72" class="card_botleft">100</div>
+                    <div id="card73" class="card_botright">100</div>
+                </div>
+                <div class="card8_box" draggable="true">
+                    <div id="card8" class="card_center">100</div>
+                    <div id="card80" class="card_topleft">100</div>
+                    <div id="card81" class="card_topright">100</div>
+                    <div id="card82" class="card_botleft">100</div>
+                    <div id="card83" class="card_botright">100</div>
                 </div>
             </div>
             <div class="col-2"></div>
@@ -128,17 +181,21 @@
             </div>
         </div>
     </div>
+    <div ondrop="drop(event)" ondragover="allowDrop(event)"
+        style="border: 1px black solid; width: 200px; height: 200px;"></div>
 
     <script src="../socket.js" type="text/javascript"></script>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js" 
-        integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.6.0/umd/popper.min.js"
+        integrity="sha512-BmM0/BQlqh02wuK5Gz9yrbe7VyIVwOzD1o40yi1IsTjriX/NGF37NyXHfmFzIlMmoSIBXgqDiG1VNU6kB5dBbA=="
+        crossorigin="anonymous"></script>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" 
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 </body>
