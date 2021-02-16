@@ -130,7 +130,7 @@ io.on('connection', (socket) => {
             }
             i++;
         }
-        var recards = true;
+        /*var recards = true;
         for(var i=0;i<8;i++){
             if(players[i][0]!=''){
                 recards = false;
@@ -140,7 +140,7 @@ io.on('connection', (socket) => {
             level = 1;
             card8 = rng8(level);
             lastcard = 0;
-        }
+        }*/
         console.log(players);
     });
     //player ready
@@ -186,7 +186,7 @@ io.on('connection', (socket) => {
             card8=rng8(level);
             lastcard=0;
             level = 1;
-            io.sockets.emit('card_played', {played_card: data.card, result: 'lose', cards_left: --players_number, played_by: data.player});
+            io.sockets.emit('card_played', {played_card: data.card, result: 'lose', cards_left: players_number, played_by: data.player});
         }
     });
 });
