@@ -15,56 +15,59 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="style/cards.css">
+    <link rel="stylesheet" href="style/button.css">
+    <link rel="stylesheet" href="style/game.css">
 
     <title>The Mind</title>
     <script src="/socket.io/socket.io.js"></script>
 </head>
 
-<body>
+<body style="background-image: url('/img/background.jpg'); background-size: 110%;">
 
-    <br>
     <div class="container">
-        <div class="row justify-content-center">
 
-            <div class="col-3 text-center" style="border: 1px black solid; height: 100px; position: relative;">
-                <div id="1"></div>
-                <div style="background-image: url('/img/hatlap2.png'); background-size: cover; height: 80px; width: 84px;
-                            transform: translateX(-50%) translateY(-50%); position: absolute; top: 65%; left: 50%;">
+        <div class="row justify-content-center" style="height: 20vh;">
+            <div class="col-4 text-center player_box" id="player_box1">
+                <div id="1" class="player_name"></div>
+                <div class="img_box">
+                    <img src="/img/hatlap2.png" class="player_card_img">
+                    <div class="left_cards" id="left_cards1"></div>
+                </div>  
+            </div>
+            <div class="col-4 text-center player_box" id="player_box0">
+                <div id="0" class="player_name"></div>
+                <div class="img_box">
+                    <img src="/img/hatlap2.png" class="player_card_img">
+                    <div class="left_cards" id="left_cards0"></div>
                 </div>
             </div>
-            <div class="col-1"></div>
-            <div class="col-3 text-center" style="border: 1px black solid; height: 100px; position: relative;">
-                <div id="0"></div>
-                <div style="background-image: url('/img/hatlap2.png'); background-size: cover; height: 80px; width: 84px;
-                            transform: translateX(-50%) translateY(-50%); position: absolute; top: 65%; left: 50%;">
+            <div class="col-4 text-center player_box" id="player_box2">
+                <div id="2" class="player_name"></div>
+                <div class="img_box">
+                    <img src="/img/hatlap2.png" class="player_card_img">
+                    <div class="left_cards" id="left_cards2"></div>
                 </div>
             </div>
-            <div class="col-1"></div>
-            <div class="col-3 text-center" style="border: 1px black solid; height: 100px; position: relative;">
-                <div id="2"></div>
-                <div style="background-image: url('/img/hatlap2.png'); background-size: cover; height: 80px; width: 84px;
-                            transform: translateX(-50%) translateY(-50%); position: absolute; top: 65%; left: 50%;">
-                </div>
-            </div>
+        </div>
 
-        </div><br>
-        <div class="row justify-content-center" style="height: 200px;">
-            <div class="col-3 text-center">
-                <div style="border: 1px black solid; height: 100px; position: relative;">
-                    <div id="3"></div>
-                    <div style="background-image: url('/img/hatlap2.png'); background-size: cover; height: 80px; width: 84px;
-                            transform: translateX(-50%) translateY(-50%); position: absolute; top: 65%; left: 50%;">
+        <div class="row justify-content-center" style="height: 40vh;">
+            <div class="col-4 text-center">
+                <div class="player_box" style="height: 20vh; top: 0%;" id="player_box3">
+                    <div id="3" class="player_name"></div>
+                    <div class="img_box">
+                        <img src="/img/hatlap2.png" class="player_card_img">
+                        <div class="left_cards" id="left_cards3"></div>
                     </div>
                 </div>
-                <br>
-                <div style="border: 1px black solid; height: 100px; position: relative;">
-                    <div id="5"></div>
-                    <div style="background-image: url('/img/hatlap2.png'); background-size: cover; height: 80px; width: 84px;
-                            transform: translateX(-50%) translateY(-50%); position: absolute; top: 65%; left: 50%;">
+                <div class="player_box" style="height: 20vh; bottom: 0%;" id="player_box5">
+                    <div id="5" class="player_name"></div>
+                    <div class="img_box">
+                        <img src="/img/hatlap2.png" class="player_card_img">
+                        <div class="left_cards" id="left_cards5"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-6" style="position: relative;">
+            <div class="col-4" style="position: relative;">
                 <div id="dropbox" class="played_cards_box">
                     <div id="played_cards" class="card_center">0</div>
                     <div id="played_cards0" class="card_topleft">0</div>
@@ -73,26 +76,28 @@
                     <div id="played_cards3" class="card_botright">0</div>
                 </div>
             </div>
-            <div class="col-3 text-center">
-                <div style="border: 1px black solid; height: 100px; position: relative;">
-                    <div id="4"></div>
-                    <div style="background-image: url('/img/hatlap2.png'); background-size: cover; height: 80px; width: 84px;
-                            transform: translateX(-50%) translateY(-50%); position: absolute; top: 65%; left: 50%;">
+            <div class="col-4 text-center">
+                <div class="player_box" style="height: 20vh; top: 0%;" id="player_box4">
+                    <div id="4" class="player_name"></div>
+                    <div class="img_box">
+                        <img src="/img/hatlap2.png" class="player_card_img">
+                        <div class="left_cards" id="left_cards4"></div>
                     </div>
                 </div>
-                <br>
-                <div style="border: 1px black solid; height: 100px; position: relative;">
-                    <div id="6"></div>
-                    <div style="background-image: url('/img/hatlap2.png'); background-size: cover; height: 80px; width: 84px;
-                            transform: translateX(-50%) translateY(-50%); position: absolute; top: 65%; left: 50%;">
+                
+                <div class="player_box" style="height: 20vh; bottom: 0%;" id="player_box6">
+                    <div id="6" class="player_name"></div>
+                    <div class="img_box">
+                        <img src="/img/hatlap2.png" class="player_card_img">
+                        <div class="left_cards" id="left_cards6"></div>
                     </div>
                 </div>
             </div>
         </div>
-        <br><br>
-        <div class="row justify-content-center" style="height: 200px; border: 1px black solid;">
-            <div class="col-1">
-                <div id="ready_div">
+        
+        <div class="row justify-content-center">
+            <div class="col-12" style="position: relative; height: 5vh;">
+                <div id="ready_div" style="transform: translateX(-50%) translateY(-50%); position: absolute; top: 50%; left: 50%;">
                     <style>
                         .toggle.ios,
                         .toggle-on.ios,
@@ -107,9 +112,19 @@
                     <input type="checkbox" data-toggle="toggle" data-on="Ready" data-off="Unready"
                         data-onstyle="success" id="ready" data-offstyle="danger" data-style="ios">
                 </div>
+                <div>
+                    <form action="/" method="POST">
+                        <input type="hidden" id="player" name="name" value="<%= name %>">
+                        <input type="hidden" name="level" id="level" value="<%= level %>">
+                        <input type="submit" id="try_again" value="Try again" style="transform: translateX(-50%) translateY(-50%); position: absolute; top: 50%; left: 50%;">
+                        <input type="submit" id="next_level" value="Next level" style="transform: translateX(-50%) translateY(-50%); position: absolute; top: 50%; left: 50%;">
+                    </form>
+                </div>
             </div>
-            <div class="col-2"></div>
-            <div class="col-4" style="position: relative; min-width: 500px; min-height: 200px; border: 1px tomato solid;">
+        </div>
+
+        <div class="row justify-content-center" style="height: 30vh;">
+            <div class="col-12" style="position: relative; height: 30vh;">
                 <div id="card1_box" class="card1_box">
                     <div id="card1" class="card_center"></div>
                     <div id="card10" class="card_topleft"></div>
@@ -165,16 +180,6 @@
                     <div id="card81" class="card_topright">100</div>
                     <div id="card82" class="card_botleft">100</div>
                     <div id="card83" class="card_botright">100</div>
-                </div>
-            </div>
-            <div class="col-2" style="position: relative; border: 1px blue solid;">
-                <div style="position: absolute;">
-                    <form action="/" method="POST">
-                        <input type="hidden" id="player" name="name" value="<%= name %>">
-                        <input type="hidden" name="level" id="level" value="<%= level %>">
-                        <input type="submit" id="try_again" value="Try again">
-                        <input type="submit" id="next_level" value="Next level">
-                    </form>
                 </div>
             </div>
         </div>

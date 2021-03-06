@@ -1,51 +1,49 @@
 .card_center{
-    font-family: cursive; 
-    font-size: 70px; 
+    font-family: 'Comic Sans MS', serif;
+    font-size: 9vh; 
     color: black;
-    text-shadow: 1px 0 whitesmoke, -1px 0 whitesmoke, 0 1px whitesmoke, 0 -1px whitesmoke;
+    text-shadow: 0.1vh 0 whitesmoke, -0.1vh 0 whitesmoke, 0 0.1vh whitesmoke, 0 -0.1vh whitesmoke;
     transform: translateX(-50%) translateY(-50%); 
     position: absolute; 
     top: 50%; 
     left: 50%;
 }
 .card_topleft{
-    font-family: cursive; 
-    font-size: 25px; 
+    font-family: 'Comic Sans MS', serif;
+    font-size: 3.5vh; 
     color: whitesmoke;
-    position: absolute; 
-    top: -1%; 
-    left: 4%;
+    position: absolute;
+    left: 5%;
 }
 .card_topright{
-    font-family: cursive; 
-    font-size: 25px; 
+    font-family: 'Comic Sans MS', serif;
+    font-size: 3.5vh; 
     color: whitesmoke;
-    position: absolute; 
-    top: -1%; 
-    right: 4%;
+    position: absolute;
+    right: 5%;
 }
 .card_botleft{
-    font-family: cursive; 
-    font-size: 25px; 
+    font-family: 'Comic Sans MS', serif;
+    font-size: 3.5vh; 
     color: whitesmoke;
     transform: rotate(180deg); 
-    position: absolute; 
-    bottom: -1%; 
-    left: 4%;
+    position: absolute;
+    bottom: 0%; 
+    left: 5%;
 }
 .card_botright{
-    font-family: cursive; 
-    font-size: 25px; 
+    font-family: 'Comic Sans MS', serif;
+    font-size: 3.5vh; 
     color: whitesmoke;
     transform: rotate(180deg); 
     position: absolute; 
-    bottom: -1%; 
-    right: 4%;
+    bottom: 0%; 
+    right: 5%;
 }
 
 .played_cards_box, .card1_box, .card2_box, .card3_box, .card4_box, .card5_box, .card6_box, .card7_box, .card8_box{
-    width: 130px; 
-    height: 200px; 
+    width: 17.1vh; 
+    height: 26vh; 
     background-image: url('/img/card_sample.png'); 
     background-size: cover;
     transform: translateX(-50%) translateY(-50%); 
@@ -58,34 +56,34 @@
 }
 
 .card1_box{
-    left: 0%;
+    left: 20%;
     z-index: 8;
 }
 .card2_box{
-    left: 10%;
+    left: 30%;
     z-index: 7;
 }
 .card3_box{
-    left: 20%;
+    left: 40%;
     z-index: 6;
 }
 .card4_box{
-    left: 30%;
+    left: 50%;
     z-index: 5;
 }
 .card5_box{
-    left: 40%;
+    left: 60%;
     z-index: 4;
 }
 .card6_box{
-    left: 50%;
+    left: 70%;
     z-index: 3;
 }
 .card7_box{
-    left: 60%;
+    left: 80%;
     z-index: 2;
 }
 .card8_box{
-    left: 70%;
+    left: 90%;
     z-index: 1;
 }

@@ -12,10 +12,17 @@ window.onload = () => {
     var next_level = document.getElementById('next_level');
     var dropbox = document.getElementById('dropbox');
     var asd = document.getElementById('asd');
+    var left_cards = new Array(7);
+    var player_name = new Array(7);
 
     for(var i=0; i<8;i++){
         client_cards[i]=document.getElementById('card'+(i+1).toString());
         client_cards_box[i]=document.getElementById('card'+(i+1).toString()+'_box');
+    }
+
+    for(var i=0;i<7;i++){
+        left_cards[i]=document.getElementById('left_cards'+i.toString());
+        player_name[i]=document.getElementById(i.toString());
     }
 
     var level = document.getElementById('level').value;
@@ -50,7 +57,7 @@ window.onload = () => {
 
     dropbox.ondrop = (ev) => {
         ev.preventDefault();
-        socket.emit('card_played', {card: document.getElementById(ev.dataTransfer.getData("text").substring(0, 5)).value, player: player.value});
+        socket.emit('card_played', {card: document.getElementById(ev.dataTransfer.getData("text").substring(0, 5)).value, player: player.value, left_cards: parseInt(level)-cards_played-1});
         document.getElementById(ev.dataTransfer.getData("text")).style.display = 'none';
         client_cards_box[parseInt(ev.dataTransfer.getData("text").substring(4, 5))].setAttribute('draggable', 'true');
 
@@ -64,6 +71,10 @@ window.onload = () => {
     client_cards_box.forEach(element => {
         element.ondragstart = (ev) => {
             ev.dataTransfer.setData("text", ev.target.id);
+            socket.emit('dragstart', {player_name: player.value});
+        };
+        element.ondragend = () => {
+            socket.emit('dragend', {player_name: player.value});
         };
     });
     
@@ -107,8 +118,15 @@ window.onload = () => {
     });
     //players joined, disconnected
     socket.on('players_list', (data) => {
-        for(var i = 0;i<7;i++){
-            document.getElementById((i.toString())).innerHTML = data.players[i][0];
+        var index=0;
+        for(var i = 0;i<8;i++){
+            if(data.players[i][0]!='' && player.value != data.players[i][0])
+            {
+                player_name[index].innerHTML = data.players[i][0];
+                player_name[index].value = data.players[i][0];
+                document.getElementById('player_box'+index.toString()).style.visibility='visible';
+                index++;
+            }  
         }
     });
     //players ready to start
@@ -116,13 +134,21 @@ window.onload = () => {
         setTimeout(()=>{
             document.getElementById('ready_div').style.display='none';
             client_cards_box[0].setAttribute('draggable', 'true');
+            left_cards.forEach((item)=>{
+                item.innerHTML = level;
+            });
         }, 500)
     });
     //card played
     socket.on('card_played', (data) => {
+        for(var i=0;i<7;i++){
+            if(player_name[i].value == data.played_by){
+                left_cards[i].innerHTML = data.player_left_cards;
+            }
+        }
         for(var i=0;i<level;i++){
             if(parseInt(data.played_card)>parseInt(server_cards[i])){
-                socket.emit('card_played', {card: server_cards[i], player: player.value});
+                socket.emit('card_played', {card: server_cards[i], player: player.value, left_cards: parseInt(level)-cards_played});
             }
         }
         if(data.result=='lose'){
@@ -139,5 +165,21 @@ window.onload = () => {
         document.getElementById('played_cards1').innerHTML = data.played_card;
         document.getElementById('played_cards2').innerHTML = data.played_card;
         document.getElementById('played_cards3').innerHTML = data.played_card;
+    });
+    //dragstart
+    socket.on('dragstart', (data) => {
+        for(var i=0;i<7;i++){
+            if(player_name[i].value == data.player_name){
+                player_name[i].style.textShadow = '0.1vh 0 red, -0.1vh 0 red, 0 0.1vh red, 0 -0.1vh red';
+            }
+        }
+    });
+    //dragend
+    socket.on('dragend', (data) => {
+        for(var i=0;i<7;i++){
+            if(player_name[i].value == data.player_name){
+                player_name[i].style.textShadow = '';
+            }
+        }
     });
 }

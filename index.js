@@ -58,6 +58,9 @@ app.get('/socket.js', function (req, res) {
 app.get('/style/home.css', function (req, res) {
     res.sendFile(__dirname + '/style/home.css');
 });
+app.get('/style/button.css', function (req, res) {
+    res.sendFile(__dirname + '/style/button.css');
+});
 app.get('/style/game.css', function (req, res) {
     res.sendFile(__dirname + '/style/game.css');
 });
@@ -173,9 +176,10 @@ io.on('connection', (socket) => {
     //card played
     socket.on('card_played', (data) => {
         console.log(data.card + '  ' + lastcard + '  ' + players_number);
+        console.log('dataleftcrd: '+data.left_cards);
         if(parseInt(lastcard)<parseInt(data.card)){
             lastcard = data.card;
-            io.sockets.emit('card_played', {played_card: data.card, result: 'keep goin', cards_left: --players_number, played_by: data.player});
+            io.sockets.emit('card_played', {played_card: data.card, result: 'keep goin', cards_left: --players_number, played_by: data.player, player_left_cards: data.left_cards});
             if(players_number==0){
                 level++;
                 card8=rng8(level);
@@ -186,7 +190,15 @@ io.on('connection', (socket) => {
             card8=rng8(level);
             lastcard=0;
             level = 1;
-            io.sockets.emit('card_played', {played_card: data.card, result: 'lose', cards_left: players_number, played_by: data.player});
+            io.sockets.emit('card_played', {played_card: data.card, result: 'lose', cards_left: players_number, played_by: data.player, player_left_cards: data.left_cards});
         }
+    });
+    //dropstart
+    socket.on('dragstart', (data) => {
+        io.sockets.emit('dragstart', {player_name: data.player_name})
+    });
+    //dropend
+    socket.on('dragend', (data) => {
+        io.sockets.emit('dragend', {player_name: data.player_name})
     });
 });

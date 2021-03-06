@@ -1,0 +1,39 @@
+.player_name{
+    color: whitesmoke;
+    font-family: 'Comic Sans MS', serif;
+    font-size: 3vh;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+}
+.player_box{
+    position: relative;
+    visibility: hidden;
+}
+.img_box{
+    position: absolute;
+    height: 70%;
+    width: 14.75vh;
+    transform: translateX(-50%);
+    top: 30%; 
+    left: 50%;
+}
+.player_card_img{
+    height: 100%;
+    transform: translateX(-50%); 
+    position: absolute;
+}
+.left_cards{
+    font-family: 'Comic Sans MS', serif;
+    color: red;
+    font-size: 7vh;
+    transform: translateX(-50%);
+    position: absolute;
+    left: 65%;
+    bottom: 8%;
+    text-shadow: 0.2vh 0 black, -0.2vh 0 black, 0 0.2vh black, 0 -0.2vh black;
+}
+
+body {
+    height: 95vh;
+}
