@@ -46,44 +46,45 @@
     height: 26vh; 
     background-image: url('/img/card_sample.png'); 
     background-size: cover;
-    transform: translateX(-50%) translateY(-50%); 
+    /*transform: translateX(-50%) translateY(-50%);*/
     position: absolute; 
-    top: 50%;
 }
 
 .played_cards_box{
+    transform: translateX(-50%) translateY(-50%);
+    top: 50%;
     left: 50%;
 }
 
 .card1_box{
-    left: 20%;
+    left: 0vh;
     z-index: 8;
 }
 .card2_box{
-    left: 30%;
+    left: 6vh;
     z-index: 7;
 }
 .card3_box{
-    left: 40%;
+    left: 12vh;
     z-index: 6;
 }
 .card4_box{
-    left: 50%;
+    left: 18vh;
     z-index: 5;
 }
 .card5_box{
-    left: 60%;
+    left: 24vh;
     z-index: 4;
 }
 .card6_box{
-    left: 70%;
+    left: 30vh;
     z-index: 3;
 }
 .card7_box{
-    left: 80%;
+    left: 36vh;
     z-index: 2;
 }
 .card8_box{
-    left: 90%;
+    left: 42vh;
     z-index: 1;
 }

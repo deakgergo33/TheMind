@@ -40,6 +40,39 @@
     }
 }
 
-#card{
-    position: relative; top: 30%;
+.card{
+    position: relative; 
+    top: 20%;
+    background: rgba(0, 0, 0, 0.7); 
+    border: 1px white solid;
+}
+
+.jumbotron{
+    background: rgba(5, 5, 5, 0.5); 
+    border-bottom: 1px rgb(197, 196, 196) solid;
+}
+
+body{
+    background-image: url('/img/background.jpg'); 
+    background-size: 150%;
+}
+
+#jumbotron_text{
+    font-family: 'Comic Sans MS', serif; 
+    font-weight: bold; 
+    color: white;
+}
+
+img{
+    border: 1px white solid; 
+    opacity: 0.8;
+}
+
+.card-text{
+    color: gray; 
+    font-family: 'Comic Sans MS', serif;
+}
+
+.card-title{
+    color: white;
 }

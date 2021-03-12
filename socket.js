@@ -3,7 +3,6 @@ window.onload = () => {
 
     var player = document.getElementById('player');
     var ready = document.getElementById('ready');
-    var gamefield = document.getElementById('gamefield');
     var server_cards = new Array(8);
     var client_cards = new Array(8);
     var client_cards_box = new Array(8);
@@ -11,7 +10,7 @@ window.onload = () => {
     var try_again = document.getElementById('try_again');
     var next_level = document.getElementById('next_level');
     var dropbox = document.getElementById('dropbox');
-    var asd = document.getElementById('asd');
+    var indicator_text = document.getElementById('indicator_text');
     var left_cards = new Array(7);
     var player_name = new Array(7);
 
@@ -77,8 +76,7 @@ window.onload = () => {
             socket.emit('dragend', {player_name: player.value});
         };
     });
-    
-    
+        
     //next level
     next_level.addEventListener('click', () => {
         level++;
@@ -138,6 +136,17 @@ window.onload = () => {
                 item.innerHTML = level;
             });
         }, 500)
+
+        indicator_text.innerHTML = 'Start!';
+        indicator_text.style.color = 'chartreuse';
+        setTimeout(() => {
+            jQuery(indicator_text).animate({
+                fontSize: '12vh'
+            }, 400);
+            setTimeout(() => jQuery(indicator_text).animate({
+                fontSize: '0vh'
+            }, 400), 600);
+        }, 300);
     });
     //card played
     socket.on('card_played', (data) => {
@@ -156,9 +165,27 @@ window.onload = () => {
                 element.setAttribute('draggable', 'false');
             });
             try_again.style.display = 'block';
+
+            indicator_text.innerHTML = 'Lose';
+            indicator_text.style.color = 'red';
+            jQuery(indicator_text).animate({
+                fontSize: '12vh'
+            }, 400);
+            setTimeout(() => jQuery(indicator_text).animate({
+                fontSize: '0vh'
+            }, 400), 600);
         }
         else if(data.cards_left==0){
             next_level.style.display = 'block';
+
+            indicator_text.innerHTML = 'Win!';
+            indicator_text.style.color = 'green';
+            jQuery(indicator_text).animate({
+                fontSize: '12vh'
+            }, 400);
+            setTimeout(() => jQuery(indicator_text).animate({
+                fontSize: '0vh'
+            }, 400), 600);
         }
         played_cards.innerHTML = data.played_card;
         document.getElementById('played_cards0').innerHTML = data.played_card;

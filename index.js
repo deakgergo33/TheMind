@@ -14,45 +14,19 @@ const server = app.listen(3000);
 //socket setup
 const io = socket(server);
 
-//variables
-var players = [['','',''],['','',''],['','',''],['','',''],['','',''],['','',''],['','',''],['','','']];
-var players_number = 0;
-var lastcard = 0;
-var level = 1;
-//random
-var numbers = new Array(100);
-for(var i=0;i<100;i++){
-    numbers[i] = i+1;
-}
-function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-}
-function rng8(level) {
-    var array = new Array(64);
-    shuffleArray(numbers);
-    for(var i=0;i<level*8;i++){
-        array[i] = numbers[i];
-    }
-    return array;
-}
-var card8 = rng8(level);
-
 //routes
 app.get('/', (req, res) => {
     res.render('home');
 });
-
 app.post('/', (req, res) => {
     res.render('game', {name: req.body.name, level: level});
 });
-
+//js
 app.get('/socket.js', function (req, res) {
     res.sendFile(__dirname + '/socket.js');
+});
+app.get('/phonetouch.js', function (req, res) {
+    res.sendFile(__dirname + '/phonetouch.js');
 });
 //css
 app.get('/style/home.css', function (req, res) {
@@ -63,9 +37,6 @@ app.get('/style/button.css', function (req, res) {
 });
 app.get('/style/game.css', function (req, res) {
     res.sendFile(__dirname + '/style/game.css');
-});
-app.get('/style/checkbox.css', function (req, res) {
-    res.sendFile(__dirname + '/style/checkbox.css');
 });
 app.get('/style/cards.css', function (req, res) {
     res.sendFile(__dirname + '/style/cards.css');
@@ -84,14 +55,39 @@ app.get('/img/pic3.png', function (req, res) {
     res.sendFile(__dirname + '/img/pic3.png');
 });
 
-app.get('/drag(event)', function (req, res) {
-    res.sendFile(__dirname + '/socket.js');
-});
-
 app.use((req, res) => {
     res.render('home');
 });
 
+//variables
+var players = [['','',''],['','',''],['','',''],['','',''],['','',''],['','',''],['','',''],['','','']];
+var players_number = 0;
+var lastcard = 0;
+var level = 1;
+var recards = false;
+
+//random
+var numbers = new Array(100);
+for(var i=0;i<100;i++){
+    numbers[i] = i+1;
+}
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+function shuffle_cards() {
+    var array = new Array(64);
+    shuffleArray(numbers);
+    for(var i=0;i<64;i++){
+        array[i] = numbers[i];
+    }
+    return array;
+}
+var card8 = shuffle_cards();
 
 //socket
 io.on('connection', (socket) => {
@@ -102,18 +98,18 @@ io.on('connection', (socket) => {
         var i = 0;
         while(i<8){
             if(players[i][0]==''){
+                recards=false;
                 players[i][0]=data.player;
                 players[i][1]=socket.id;
                 players[i][2]='false';
                 console.log(data.player + ' joined');
                 io.to(socket.id).emit('cards',{cards: card8, number: i});
                 io.sockets.emit('players_list', {players: players});
-                i=0;
-                break;
+                i=7;
             }
             i++;
         }
-        if(i!=0){
+        if(i>8){
             io.to(socket.id).emit('full',{});
         }
         console.log(players);
@@ -133,17 +129,21 @@ io.on('connection', (socket) => {
             }
             i++;
         }
-        /*var recards = true;
         for(var i=0;i<8;i++){
             if(players[i][0]!=''){
                 recards = false;
             }
+            else{
+                recards = true;
+            }
         }
-        if(recards){
-            level = 1;
-            card8 = rng8(level);
-            lastcard = 0;
-        }*/
+        setTimeout(() => {
+            if(recards){
+                level = 1;
+                card8 = shuffle_cards();
+                lastcard = 0;
+            }
+        }, 10000);
         console.log(players);
     });
     //player ready
@@ -176,18 +176,18 @@ io.on('connection', (socket) => {
     //card played
     socket.on('card_played', (data) => {
         console.log(data.card + '  ' + lastcard + '  ' + players_number);
-        console.log('dataleftcrd: '+data.left_cards);
+        console.log('level: '+level);
         if(parseInt(lastcard)<parseInt(data.card)){
             lastcard = data.card;
             io.sockets.emit('card_played', {played_card: data.card, result: 'keep goin', cards_left: --players_number, played_by: data.player, player_left_cards: data.left_cards});
             if(players_number==0){
                 level++;
-                card8=rng8(level);
+                card8=shuffle_cards();
                 lastcard = 0;
             }
         }
         else{
-            card8=rng8(level);
+            card8=shuffle_cards();
             lastcard=0;
             level = 1;
             io.sockets.emit('card_played', {played_card: data.card, result: 'lose', cards_left: players_number, played_by: data.player, player_left_cards: data.left_cards});
