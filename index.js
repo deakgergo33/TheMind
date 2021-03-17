@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 });
 app.post('/', (req, res) => {
     res.render('game', {name: req.body.name, level: level});
+    console.log(level + ' ezt kapjak');
 });
 //js
 app.get('/socket.js', function (req, res) {
@@ -60,7 +61,7 @@ app.use((req, res) => {
 });
 
 //variables
-var players = [['','',''],['','',''],['','',''],['','',''],['','',''],['','',''],['','',''],['','','']];
+var players = [['','','',''],['','','',''],['','','',''],['','','',''],['','','',''],['','','',''],['','','',''],['','','','']];
 var players_number = 0;
 var lastcard = 0;
 var level = 1;
@@ -98,10 +99,11 @@ io.on('connection', (socket) => {
         var i = 0;
         while(i<8){
             if(players[i][0]==''){
-                recards=false;
+                recards = false;
                 players[i][0]=data.player;
                 players[i][1]=socket.id;
                 players[i][2]='false';
+                players[i][3]=data.level.toString();
                 console.log(data.player + ' joined');
                 io.to(socket.id).emit('cards',{cards: card8, number: i});
                 io.sockets.emit('players_list', {players: players});
@@ -124,19 +126,19 @@ io.on('connection', (socket) => {
                 players[i][0]='';
                 players[i][1]='';
                 players[i][2]='';
+                players[i][3]='';
                 io.sockets.emit('players_list', {players: players});
                 break;
             }
             i++;
         }
+        var player_counter = 0;
         for(var i=0;i<8;i++){
-            if(players[i][0]!=''){
-                recards = false;
-            }
-            else{
-                recards = true;
+            if(players[i][0]==''){
+                player_counter++;
             }
         }
+        if(player_counter == 8) recards = true;
         setTimeout(() => {
             if(recards){
                 level = 1;
@@ -190,6 +192,10 @@ io.on('connection', (socket) => {
             card8=shuffle_cards();
             lastcard=0;
             level = 1;
+            for(var i=0;i<8;i++)
+            {
+                players[i][3]='0';
+            }
             io.sockets.emit('card_played', {played_card: data.card, result: 'lose', cards_left: players_number, played_by: data.player, player_left_cards: data.left_cards});
         }
     });

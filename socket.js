@@ -32,7 +32,7 @@ window.onload = () => {
 
     //send
     //player name
-    socket.emit('player', {player: player.value});
+    socket.emit('player', {player: player.value, level: level});
     //player ready
     $('#ready').on('change', (event) => {
             if (event.currentTarget.checked) {
@@ -118,13 +118,16 @@ window.onload = () => {
     socket.on('players_list', (data) => {
         var index=0;
         for(var i = 0;i<8;i++){
-            if(data.players[i][0]!='' && player.value != data.players[i][0])
+            if(data.players[i][0]!='' && player.value != data.players[i][0] && data.players[i][3] == level.toString())
             {
                 player_name[index].innerHTML = data.players[i][0];
                 player_name[index].value = data.players[i][0];
                 document.getElementById('player_box'+index.toString()).style.visibility='visible';
                 index++;
             }  
+        }
+        for(var i=6;i>=index;i--){
+            document.getElementById('player_box'+i.toString()).style.visibility='hidden';
         }
     });
     //players ready to start
@@ -165,6 +168,8 @@ window.onload = () => {
                 element.setAttribute('draggable', 'false');
             });
             try_again.style.display = 'block';
+
+            level=0;
 
             indicator_text.innerHTML = 'Lose';
             indicator_text.style.color = 'red';

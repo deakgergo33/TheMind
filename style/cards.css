@@ -50,6 +50,10 @@
     position: absolute; 
 }
 
+.card1_box, .card2_box, .card3_box, .card4_box, .card5_box, .card6_box, .card7_box, .card8_box{
+    display: none;
+}
+
 .played_cards_box{
     transform: translateX(-50%) translateY(-50%);
     top: 50%;
