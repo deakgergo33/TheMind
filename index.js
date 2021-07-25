@@ -26,8 +26,23 @@ app.post('/', (req, res) => {
 app.get('/socket.js', function (req, res) {
     res.sendFile(__dirname + '/socket.js');
 });
-app.get('/phonetouch.js', function (req, res) {
-    res.sendFile(__dirname + '/phonetouch.js');
+app.get('/links/phonetouch.js', function (req, res) {
+    res.sendFile(__dirname + '/links/phonetouch.js');
+});
+app.get('/links/jquery1.js', function (req, res) {
+    res.sendFile(__dirname + '/links/jquery1.js');
+});
+app.get('/links/ajax1.js', function (req, res) {
+    res.sendFile(__dirname + '/links/ajax1.js');
+});
+app.get('/links/bootstrap3.js', function (req, res) {
+    res.sendFile(__dirname + '/links/bootstrap3.js');
+});
+app.get('/links/bootstrap4.js', function (req, res) {
+    res.sendFile(__dirname + '/links/bootstrap4.js');
+});
+app.get('/links/bootstrap6.js', function (req, res) {
+    res.sendFile(__dirname + '/links/bootstrap6.js');
 });
 //css
 app.get('/style/home.css', function (req, res) {
@@ -41,6 +56,16 @@ app.get('/style/game.css', function (req, res) {
 });
 app.get('/style/cards.css', function (req, res) {
     res.sendFile(__dirname + '/style/cards.css');
+});
+//bootstrap
+app.get('/links/bootstrap1.css', function (req, res) {
+    res.sendFile(__dirname + '/links/bootstrap1.css');
+});
+app.get('/links/bootstrap2.css', function (req, res) {
+    res.sendFile(__dirname + '/links/bootstrap2.css');
+});
+app.get('/links/bootstrap5.css', function (req, res) {
+    res.sendFile(__dirname + '/links/bootstrap5.css');
 });
 //pics
 app.get('/img/background.jpg', function (req, res) {
