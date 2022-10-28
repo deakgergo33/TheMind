@@ -1,0 +1,12 @@
+version: '3'
+services: 
+  TheMind:
+    container_name: TheMind
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: themind:latest
+    healthcheck:
+      test: ["CMD", "curl", "-f", "localhost:3000"]
+    ports:
+      - "3000:3000"
