@@ -10,5 +10,7 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
+      - name: pull changes
+        run: git pull
       - name: run deploy.sh
         run: sh deploy.sh
