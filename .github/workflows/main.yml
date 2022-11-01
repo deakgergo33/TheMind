@@ -1,0 +1,14 @@
+name: TheMind
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: run deploy.sh
+        run: sh deploy.sh
