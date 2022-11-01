@@ -1,0 +1,11 @@
+name: TheMind
+
+on:
+  push:
+    branches: [ main ]
+
+steps:
+  - uses: actions/checkout@v2
+  - name: run script
+    run: sh deploy.sh
+  
